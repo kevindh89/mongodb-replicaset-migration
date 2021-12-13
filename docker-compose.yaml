@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  mongo_web01:
+    image: mongo:3.4.23
+    command:
+#      - '--auth'
+      - '-f'
+      - '/etc/mongod.conf'
+    volumes:
+        - './mongo/web01_mongod.conf:/etc/mongod.conf'
+        - './mongo/web01_db:/var/lib/mongodb'
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo_cluster
+
+  mongo_ded01:
+    image: mongo:3.4.23
+    command:
+#      - '--auth'
+      - '-f'
+      - '/etc/mongod.conf'
+    volumes:
+      - './mongo/ded01_mongod.conf:/etc/mongod.conf'
+      - './mongo/ded01_db:/var/lib/mongodb'
+    ports:
+      - "27018:27017"
+    networks:
+      - mongo_cluster
+
+networks:
+  mongo_cluster:
