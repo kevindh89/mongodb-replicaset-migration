@@ -4,9 +4,23 @@ __IMPORTANT:__
 
 # Step 1: Setup replicaset with one secondary
 
-Disable mongo authorization and create root user:
+```
+docker-compose up -d
+```
+
+Temporarily disable mongo authorization in the `web01_mongo.conf` file and 
 
 ```
+security:
+    #authorization: enabled
+    #keyFile: /keyfile
+    authorization: disabled
+```
+
+Create root user:
+
+```
+docker-compose restart
 use admin
 rs.initiate()
 db.createUser(
@@ -16,6 +30,12 @@ db.createUser(
     roles: [ { role: "root", db: "admin" } ]
   }
 )
+```
+
+Re-enable authorization (also `keyFile`) in `web01_mongo.conf` and restart docker containers
+
+```
+docker-compose restart
 ```
 
 Auth as admin:
@@ -31,11 +51,7 @@ use profile2connect
 db.profiles.insert({"_id": "test", "username": "Kevin"})
 ```
 
-Make sure all database files of secondary are removed to prepare it to become secondary:
-
-```
-rm -rf /var/lib/mongodb/*
-```
+NOTE: Make sure all database files of secondary are removed to prepare it to become secondary
 
 Add secondary member to rs:
 
