@@ -1,6 +1,6 @@
 __IMPORTANT:__
 
-* setups should have aligned authorization settings, in this case easiest would be to temp disable the authorization on both ends
+* setups should have aligned authorization settings, we should add a keyFile to the security and share these between server to maintain security
 
 # Step 1: Setup replicaset with one secondary
 
@@ -31,7 +31,7 @@ use profile2connect
 db.profiles.insert({"_id": "test", "username": "Kevin"})
 ```
 
-Remove all database files of secondary to prepare it to become secondary:
+Make sure all database files of secondary are removed to prepare it to become secondary:
 
 ```
 rm -rf /var/lib/mongodb/*
