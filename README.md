@@ -1,3 +1,7 @@
+__IMPORTANT:__
+
+* setups should have aligned authorization settings, in this case easiest would be to temp disable the authorization on both ends
+
 # Step 1: Setup replicaset with one secondary
 
 Disable mongo authorization and create root user:
